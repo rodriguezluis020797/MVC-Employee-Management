@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using EmployeeManagement.Models.DTOModels;
 using System.ComponentModel.DataAnnotations;
-using EmployeeManagement.Models.DTOModels;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeManagement.Models.CoreModels
 {

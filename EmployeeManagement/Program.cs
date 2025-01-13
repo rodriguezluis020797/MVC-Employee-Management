@@ -1,5 +1,6 @@
 using EmployeeManagement.Services;
 using EmployeeManagement.Tools;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement
 {
@@ -14,6 +15,9 @@ namespace EmployeeManagement
             builder.Services.AddSingleton<IWebAppLogger, WebAppLogger>();
             builder.Services.AddSingleton<ISupervisorService, SupervisorService>();
             builder.Services.AddSingleton<IEmployeeService, EmployeeService>();
+            builder.Services.AddDbContext<CoreDataService>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("CoreDb")),
+            ServiceLifetime.Singleton);
 
             var app = builder.Build();
 

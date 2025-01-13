@@ -1,14 +1,18 @@
 ﻿using EmployeeManagement.Models.CoreModels;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace EmployeeManagement.Services
 {
     public class CoreDataService : DbContext
     {
+        private readonly string coreConnectionString;
+        public CoreDataService(IConfiguration configuration)
+        {
+            coreConnectionString = configuration.GetConnectionString("CoreDb");
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer("Server=tcp:portfoliocore.database.windows.net,1433;Initial Catalog=employeemanagementcore;Persist Security Info=False;User ID=portfolioadmin;Password=53SzyU4XWF1GsMM;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            options.UseSqlServer(coreConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
