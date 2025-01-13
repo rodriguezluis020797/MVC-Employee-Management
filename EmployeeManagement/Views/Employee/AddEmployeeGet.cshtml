@@ -1,0 +1,42 @@
+﻿@model EmployeeManagement.Models.DTOModels.EmployeeModelDTO
+<div class="text-center">
+
+    <h1>Add Employee</h1>
+    <form method="post" asp-controller="Employee" asp-action="EditEmployeePost">
+        @{
+            if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <h3>@Model.ErrorMessage</h3>
+            }
+        }
+        <table>
+            <tr>
+                <td>First Name:</td>
+                <td><input asp-for="FirstName" type="text" id="txtFirstName" name="FirstName" /></td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td><input asp-for="LastName" type="text" id="txtLastName" name="LastName" /></td>
+            </tr>
+            <tr>
+                <td>Phone Number:</td>
+                <td><input asp-for="PhoneNumber" type="tel" id="txtPhoneNumber" name="PhoneNumber" /></td>
+            </tr>
+            <tr>
+                <td>E-Mail:</td>
+                <td><input asp-for="Email" type="email" id="txtEMail" name="Email" /></td>
+            </tr>
+            <tr>
+                <td>Hourly Rate In USD:</td>
+                <td><input asp-for="HourlyRate" type="number" id="txtHourlyRate" name="HourlyRate" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button class="btn btn-primary" type="submit" value="Submit" />
+                    Add Employee
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

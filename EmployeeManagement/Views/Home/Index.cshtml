@@ -1,8 +1,34 @@
-﻿@{
+﻿@model EmployeeManagement.Models.ViewModels.HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Dashboard</h1>
+    <br>
+    <h2 class="display-4">Welcome back, @Model.Supervisor.FullName!</h2>
+    <a class="btn btn-primary" asp-controller="Employee" asp-action="AddEmployeeGet">Add Employee</a>
+    <h3>Employee List</h3>
+
+    <div class="row">
+        <div class="col">Name</div>
+        <div class="col">E-Mail</div>
+        <div class="col">Phone Number</div>
+        <div class="col">Hourly Rate</div>
+        <div class="col"></div>
+    </div>
+    @foreach (var employee in Model.Employees)
+    {
+        <div class="row">
+            <div class="col">@employee.FullName</div>
+            <div class="col">@employee.Email</div>
+            <div class="col">@employee.PhoneNumber</div>
+            <div class="col">$@employee.HourlyRate</div>
+            <div class="col">
+                <a class="btn btn-primary" asp-controller="Employee" asp-action="EditEmployeeGet"
+                   asp-route-id="@employee.EmployeeId">Edit</a>
+            </div>
+        </div>
+        <br />
+    }
 </div>

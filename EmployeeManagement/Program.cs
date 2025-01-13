@@ -1,3 +1,6 @@
+using EmployeeManagement.Services;
+using EmployeeManagement.Tools;
+
 namespace EmployeeManagement
 {
     public class Program
@@ -8,6 +11,9 @@ namespace EmployeeManagement
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSingleton<IWebAppLogger, WebAppLogger>();
+            builder.Services.AddSingleton<ISupervisorService, SupervisorService>();
+            builder.Services.AddSingleton<IEmployeeService, EmployeeService>();
 
             var app = builder.Build();
 
