@@ -12,6 +12,11 @@ namespace EmployeeManagement.Services
 
     public class EmployeeService : IEmployeeService
     {
+        private readonly CoreDataService _coreDataService;
+        public EmployeeService(CoreDataService coreDataService)
+        {
+            _coreDataService = coreDataService;
+        }
         public List<EmployeeModel> GetAllEmployees()
         {
             return GetEmployeeList();

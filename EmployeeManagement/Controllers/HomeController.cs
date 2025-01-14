@@ -15,14 +15,12 @@ namespace EmployeeManagement.Controllers
         private readonly IEmployeeService _employeeService;
         private readonly IWebAppLogger _logger;
         private readonly ISupervisorService _supervisorService;
-        private readonly CoreDataService _coreDataService;
 
-        public HomeController(CoreDataService coreDataService, IWebAppLogger logger, ISupervisorService supervisorService, IEmployeeService employeeService)
+        public HomeController(IWebAppLogger logger, ISupervisorService supervisorService, IEmployeeService employeeService)
         {
             _logger = logger;
             _supervisorService = supervisorService;
             _employeeService = employeeService;
-            _coreDataService = coreDataService;
         }
 
         [HttpGet]

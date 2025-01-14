@@ -10,6 +10,11 @@ namespace EmployeeManagement.Services
 
     public class SupervisorService : ISupervisorService
     {
+        private readonly CoreDataService _coreDataService;
+        public SupervisorService(CoreDataService coreDataService)
+        {
+            _coreDataService = coreDataService;
+        }
         public SupervisorModel GetSupervisorById(long id)
         {
             return GetSupervisors().Where(x => x.SupervisorId == id).FirstOrDefault();
