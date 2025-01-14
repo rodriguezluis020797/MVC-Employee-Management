@@ -4,10 +4,10 @@ namespace EmployeeManagement.Services
 {
     public interface IEmployeeService
     {
-        public List<EmployeeModel> GetAllEmployees();
-        public EmployeeModel GetEmployeeById(long id);
-        public void EditEmployee(EmployeeModel employee);
-        public void DeleteEmployee(long id, out string FullName);
+        public List<EmployeeModel> GetAllEmployees(long supervisorId);
+        public EmployeeModel GetEmployeeById(long employeeId);
+        public void UpdateEmployee(EmployeeModel employee);
+        public void DeleteEmployee(long id, out string employeeName);
     }
 
     public class EmployeeService : IEmployeeService
@@ -17,50 +17,50 @@ namespace EmployeeManagement.Services
         {
             _coreDataService = coreDataService;
         }
-        public List<EmployeeModel> GetAllEmployees()
+        public List<EmployeeModel> GetAllEmployees(long supervisorId)
         {
-            return GetEmployeeList();
+            return _coreDataService.Employees
+                .Where(x => x.SupervisorId == supervisorId)
+                .ToList();
         }
 
-        public EmployeeModel GetEmployeeById(long id)
+        public EmployeeModel GetEmployeeById(long EmployeeId)
         {
-            return GetEmployeeList().Where(x => x.EmployeeId == id).FirstOrDefault();
+            return _coreDataService.Employees
+                .Where(x => x.EmployeeId == EmployeeId)
+                .FirstOrDefault();
         }
 
-        public void EditEmployee(EmployeeModel employee)
+        public void UpdateEmployee(EmployeeModel employee)
         {
+            var employeeToEdit = _coreDataService.Employees
+                .Where(x => x.EmployeeId == employee.EmployeeId)
+                .FirstOrDefault();
+
+            employeeToEdit.UpdateEmployee(employee);
+
+            _coreDataService.Employees.Update(employeeToEdit);
+            _coreDataService.SaveChanges();
         }
 
-        public void DeleteEmployee(long id, out string FullName)
+        public void DeleteEmployee(long id, out string employeeName)
         {
-            FullName = GetEmployeeList().Where(x => x.EmployeeId == id).Select(x => x.FirstName).FirstOrDefault()
-                       + " "
-                       + GetEmployeeList().Where(x => x.EmployeeId == id).Select(x => x.LastName).FirstOrDefault();
-        }
+            var employee = _coreDataService.Employees
+                .Where(x => x.EmployeeId == id)
+                .FirstOrDefault();
 
-        private List<EmployeeModel> GetEmployeeList()
-        {
-            return new List<EmployeeModel>
-        {
-            new()
+            if (employee != null)
             {
-                FirstName = "Jane",
-                LastName = "Doe",
-                Email = "jane.doe@gmail.com",
-                Phone = "1234567890",
-                EmployeeId = 1,
-                HourlyRate = 20.00m
-            },
-            new()
-            {
-                FirstName = "Jane",
-                LastName = "Doe",
-                Email = "jane.doe@gmail.com",
-                Phone = "1234567890",
-                EmployeeId = 2,
-                HourlyRate = 23.00m
+                employeeName = $"{employee.FirstName} {employee.LastName}";
+                _coreDataService.Employees.Remove(employee);
+                _coreDataService.SaveChanges();
             }
-        };
+            else
+            {
+                employeeName = null;
+            }
         }
+
+
     }
 }

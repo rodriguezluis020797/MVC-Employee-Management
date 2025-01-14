@@ -55,7 +55,7 @@ namespace EmployeeManagement.Controllers
                 if (!string.IsNullOrWhiteSpace(employeeDto.ErrorMessage)) return View("EditEmployeeGet", employeeDto);
 
                 employee.AssignObject(employeeDto);
-                _employeeService.EditEmployee(employee);
+                _employeeService.UpdateEmployee(employee);
                 _logger.LogAudit(employeeDto.ToString());
             }
             catch (Exception e)

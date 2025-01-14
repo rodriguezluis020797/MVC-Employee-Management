@@ -29,5 +29,21 @@ namespace EmployeeManagement.Models.CoreModels
             Email = employee.Email;
             HourlyRate = employee.HourlyRate;
         }
+
+        public void UpdateEmployee(EmployeeModel employee)
+        {
+            SupervisorId = employee.SupervisorId;
+            FirstName = employee.FirstName;
+            LastName = employee.LastName;
+            Phone = employee.Phone;
+            Email = employee.Email;
+            HourlyRate = employee.HourlyRate;
+            UpdateDate = DateTime.UtcNow;
+        }
+
+        public void DeleteEmployee()
+        {
+            DeleteDate = DateTime.UtcNow;
+        }
     }
 }

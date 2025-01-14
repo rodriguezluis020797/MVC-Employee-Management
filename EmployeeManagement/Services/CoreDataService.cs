@@ -27,5 +27,9 @@ namespace EmployeeManagement.Services
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired();
         }
+
+        public DbSet<SupervisorModel> Supervisors { get; set; }
+        public DbSet<EmployeeModel> Employees { get; set; }
+
     }
 }

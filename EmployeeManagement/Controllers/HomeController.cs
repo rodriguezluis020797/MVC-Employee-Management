@@ -56,7 +56,7 @@ namespace EmployeeManagement.Controllers
                     _supervisorService.GetSupervisorById(long.Parse(supervisorCookieModel.SupervisorId)));
                 viewModel.Supervisor = supervisorDto;
 
-                foreach (var employee in _employeeService.GetAllEmployees())
+                foreach (var employee in _employeeService.GetAllEmployees(long.Parse(supervisorCookieModel.SupervisorId)))
                 {
                     employeeDto = new EmployeeModelDTO();
                     employeeDto.AssignObject(employee);
