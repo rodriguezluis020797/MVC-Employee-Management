@@ -13,8 +13,8 @@ namespace EmployeeManagement
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<IWebAppLogger, WebAppLogger>();
-            builder.Services.AddSingleton<ISupervisorService, SupervisorService>();
-            builder.Services.AddSingleton<IEmployeeService, EmployeeService>();
+            builder.Services.AddTransient<ISupervisorService, SupervisorService>();
+            builder.Services.AddTransient<IEmployeeService, EmployeeService>();
             builder.Services.AddDbContext<CoreDataService>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("CoreDb")),
             ServiceLifetime.Singleton);
