@@ -38,12 +38,24 @@ namespace EmployeeManagement.Controllers
         {
             _logger.LogInfo("+");
             var supervisorCookieModel = new SupervisorCookieModel();
+            var taskList = new List<Task<SupervisorModel>>();
+            var result = new SupervisorModel[0];
             var cookieOptions = new CookieOptions();
             var supervisor = new SupervisorModel();
 
             try
             {
-                supervisor = _supervisorService.GetSupervisorByEMail(dto.EMail);
+                taskList = new List<Task<SupervisorModel>>
+                {
+                    _supervisorService.GetSupervisorByEMailAsync(dto.EMail)
+                };
+
+                result = await Task.WhenAll(taskList);
+
+                foreach (var task in result)
+                {
+                    _logger.LogInfo(task.ToString());
+                }
 
                 if (supervisor == null)
                 {

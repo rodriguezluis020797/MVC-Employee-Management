@@ -1,5 +1,6 @@
 using EmployeeManagement.Models;
 using EmployeeManagement.Models.CookieModels;
+using EmployeeManagement.Models.CoreModels;
 using EmployeeManagement.Models.DTOModels;
 using EmployeeManagement.Models.ViewModels;
 using EmployeeManagement.Services;
@@ -27,8 +28,16 @@ namespace EmployeeManagement.Controllers
         public async Task<IActionResult> Index()
         {
             _logger.LogInfo("+");
+            var results = new object[0];
+
+            var supervisorTasks = new List<Task<SupervisorModel>>();
+            var supervisor = new SupervisorModel();
             var supervisorDto = new SupervisorModelDTO();
+
+            var employeeTasks = new List<Task<EmployeeModel>>();
+            var employee = new SupervisorModel();
             var employeeDto = new EmployeeModelDTO();
+
             var viewModel = new HomeViewModel();
             var supervisorCookieModel = new SupervisorCookieModel();
             var supervisorCookiejSon = string.Empty;
@@ -52,16 +61,23 @@ namespace EmployeeManagement.Controllers
                     return RedirectToAction("SupervisorLoginGet", "Identity");
                 }
 
-                supervisorDto.AssignObject(
-                    _supervisorService.GetSupervisorById(long.Parse(supervisorCookieModel.SupervisorId)));
-                viewModel.Supervisor = supervisorDto;
-
-                foreach (var employee in _employeeService.GetAllEmployees(long.Parse(supervisorCookieModel.SupervisorId)))
+                supervisorTasks = new List<Task<SupervisorModel>>
                 {
-                    employeeDto = new EmployeeModelDTO();
-                    employeeDto.AssignObject(employee);
-                    viewModel.Employees.Add(employeeDto);
+                    _supervisorService.GetSupervisorByIdAsync(long.Parse(supervisorCookieModel.SupervisorId))
+                };
+
+
+                results = await Task.WhenAll(supervisorTasks);
+
+                foreach (var task in results)
+                {
+                    _logger.LogInfo(task.ToString());
                 }
+
+                employeeTasks = new List<Task<EmployeeModel>>
+                {
+
+                };
             }
             catch (Exception e)
             {

@@ -1,11 +1,12 @@
 ﻿using EmployeeManagement.Models.CoreModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Services
 {
     public interface ISupervisorService
     {
-        public SupervisorModel GetSupervisorById(long id);
-        public SupervisorModel GetSupervisorByEMail(string eMail);
+        public Task<SupervisorModel> GetSupervisorByIdAsync(long id);
+        public Task<SupervisorModel> GetSupervisorByEMailAsync(string eMail);
     }
 
     public class SupervisorService : ISupervisorService
@@ -15,29 +16,18 @@ namespace EmployeeManagement.Services
         {
             _coreDataService = coreDataService;
         }
-        public SupervisorModel GetSupervisorById(long id)
+        public async Task<SupervisorModel> GetSupervisorByIdAsync(long id)
         {
-            return GetSupervisors().Where(x => x.SupervisorId == id).FirstOrDefault();
+            return await _coreDataService.Supervisors
+              .Where(x => x.SupervisorId == id)
+              .FirstOrDefaultAsync();
         }
 
-        public SupervisorModel GetSupervisorByEMail(string eMail)
+        public async Task<SupervisorModel> GetSupervisorByEMailAsync(string eMail)
         {
-            return GetSupervisors().Where(x => x.Email.Equals(eMail)).FirstOrDefault();
-        }
-
-        public List<SupervisorModel> GetSupervisors()
-        {
-            return new List<SupervisorModel>
-        {
-            new()
-            {
-                SupervisorId = 1,
-                FirstName = "John",
-                LastName = "Doe",
-                Email = "john.doe@gmail.com",
-                Phone = "1234567890"
-            }
-        };
+            return await _coreDataService.Supervisors
+                .Where(x => x.Email.Equals(eMail))
+                .FirstOrDefaultAsync();
         }
     }
 }
