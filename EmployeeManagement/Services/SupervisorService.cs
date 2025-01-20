@@ -26,7 +26,7 @@ namespace EmployeeManagement.Services
         public async Task<SupervisorModel> GetSupervisorByEMailAsync(string eMail)
         {
             return await _coreDataService.Supervisors
-                .Where(x => x.Email.Equals(eMail))
+                .Where(x => x.EMail.Equals(eMail))
                 .FirstOrDefaultAsync();
         }
     }

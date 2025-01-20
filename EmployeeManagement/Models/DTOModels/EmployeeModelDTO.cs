@@ -6,6 +6,7 @@ namespace EmployeeManagement.Models.DTOModels
     public class EmployeeModelDTO
     {
         public string EmployeeId { get; set; }
+        public string SupervisorId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName => $"{FirstName} {LastName}";
@@ -57,8 +58,8 @@ namespace EmployeeManagement.Models.DTOModels
             EmployeeId = employee.EmployeeId.ToString(); //In production, this would be encrypted
             FirstName = employee.FirstName;
             LastName = employee.LastName;
-            PhoneNumber = employee.Phone;
-            Email = employee.Email;
+            PhoneNumber = employee.PhoneNumber;
+            Email = employee.EMail;
             HourlyRate = employee.HourlyRate;
         }
 

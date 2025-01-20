@@ -54,7 +54,7 @@ namespace EmployeeManagement.Controllers
 
                 foreach (var task in result)
                 {
-                    _logger.LogInfo(task.ToString());
+                    supervisor = task;
                 }
 
                 if (supervisor == null)

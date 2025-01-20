@@ -1,10 +1,11 @@
 ﻿using EmployeeManagement.Models.CoreModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Services
 {
     public interface IEmployeeService
     {
-        public List<EmployeeModel> GetAllEmployees(long supervisorId);
+        public Task<List<EmployeeModel>> GetAllEmployeesAsync(long supervisorId);
         public EmployeeModel GetEmployeeById(long employeeId);
         public void UpdateEmployee(EmployeeModel employee);
         public void DeleteEmployee(long id, out string employeeName);
@@ -17,11 +18,11 @@ namespace EmployeeManagement.Services
         {
             _coreDataService = coreDataService;
         }
-        public List<EmployeeModel> GetAllEmployees(long supervisorId)
+        public async Task<List<EmployeeModel>> GetAllEmployeesAsync(long supervisorId)
         {
-            return _coreDataService.Employees
+            return await _coreDataService.Employees
                 .Where(x => x.SupervisorId == supervisorId)
-                .ToList();
+                .ToListAsync();
         }
 
         public EmployeeModel GetEmployeeById(long EmployeeId)
@@ -37,7 +38,7 @@ namespace EmployeeManagement.Services
                 .Where(x => x.EmployeeId == employee.EmployeeId)
                 .FirstOrDefault();
 
-            employeeToEdit.UpdateEmployee(employee);
+            //employeeToEdit.UpdateRecord(employee);
 
             _coreDataService.Employees.Update(employeeToEdit);
             _coreDataService.SaveChanges();

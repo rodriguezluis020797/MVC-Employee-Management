@@ -54,7 +54,7 @@ namespace EmployeeManagement.Controllers
                 employeeDto.Validate();
                 if (!string.IsNullOrWhiteSpace(employeeDto.ErrorMessage)) return View("EditEmployeeGet", employeeDto);
 
-                employee.AssignObject(employeeDto);
+                employee.CreateNewRecord(employeeDto);
                 _employeeService.UpdateEmployee(employee);
                 _logger.LogAudit(employeeDto.ToString());
             }

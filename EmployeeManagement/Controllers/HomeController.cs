@@ -34,8 +34,8 @@ namespace EmployeeManagement.Controllers
             var supervisor = new SupervisorModel();
             var supervisorDto = new SupervisorModelDTO();
 
-            var employeeTasks = new List<Task<EmployeeModel>>();
-            var employee = new SupervisorModel();
+            var employeeTasks = new List<Task<List<EmployeeModel>>>();
+            var employees = new List<EmployeeModel>();
             var employeeDto = new EmployeeModelDTO();
 
             var viewModel = new HomeViewModel();
@@ -71,13 +71,28 @@ namespace EmployeeManagement.Controllers
 
                 foreach (var task in results)
                 {
-                    _logger.LogInfo(task.ToString());
+                    supervisor = (SupervisorModel)task;
                 }
 
-                employeeTasks = new List<Task<EmployeeModel>>
+                employeeTasks = new List<Task<List<EmployeeModel>>>
                 {
-
+                    _employeeService.GetAllEmployeesAsync(supervisor.SupervisorId)
                 };
+
+                results = new object[0];
+                results = await Task.WhenAll(employeeTasks);
+
+                foreach (var task in results)
+                {
+                    employees = (List<EmployeeModel>)task;
+                }
+
+                foreach (var employee in employees)
+                {
+                    employeeDto = new EmployeeModelDTO();
+                    employeeDto.AssignObject(employee);
+                    viewModel.Employees.Add(employeeDto);
+                }
             }
             catch (Exception e)
             {

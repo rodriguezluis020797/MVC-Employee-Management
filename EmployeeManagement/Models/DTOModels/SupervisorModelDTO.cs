@@ -16,8 +16,8 @@ namespace EmployeeManagement.Models.DTOModels
             SupervisorId = supervisor.SupervisorId.ToString(); //In production, this would be encrypted
             FirstName = supervisor.FirstName;
             LastName = supervisor.LastName;
-            Phone = supervisor.Phone;
-            Email = supervisor.Email;
+            Phone = supervisor.PhoneNumber;
+            Email = supervisor.EMail;
         }
     }
 }
