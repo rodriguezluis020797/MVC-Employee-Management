@@ -4,6 +4,7 @@ using EmployeeManagement.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagement.Migrations
 {
     [DbContext(typeof(CoreDataService))]
-    partial class CoreDataServiceModelSnapshot : ModelSnapshot
+    [Migration("20250121070437_AddEmployeeTimeEntryTable")]
+    partial class AddEmployeeTimeEntryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,39 +71,6 @@ namespace EmployeeManagement.Migrations
                     b.ToTable("Employee");
                 });
 
-            modelBuilder.Entity("EmployeeManagement.Models.CoreModels.EmployeeTimeEntryModel", b =>
-                {
-                    b.Property<long>("EmployeeTimeEntryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("EmployeeTimeEntryId"));
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("EmployeeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("InDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("OutDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("EmployeeTimeEntryId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("EmployeeTimeEntry");
-                });
-
             modelBuilder.Entity("EmployeeManagement.Models.CoreModels.SupervisorModel", b =>
                 {
                     b.Property<long>("SupervisorId")
@@ -148,22 +118,6 @@ namespace EmployeeManagement.Migrations
                         .IsRequired();
 
                     b.Navigation("Supervisor");
-                });
-
-            modelBuilder.Entity("EmployeeManagement.Models.CoreModels.EmployeeTimeEntryModel", b =>
-                {
-                    b.HasOne("EmployeeManagement.Models.CoreModels.EmployeeModel", "Employee")
-                        .WithMany("TimeEntries")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("EmployeeManagement.Models.CoreModels.EmployeeModel", b =>
-                {
-                    b.Navigation("TimeEntries");
                 });
 
             modelBuilder.Entity("EmployeeManagement.Models.CoreModels.SupervisorModel", b =>

@@ -1,4 +1,4 @@
-﻿@model EmployeeManagement.Models.ViewModels.HomeViewModel
+﻿@model EmployeeManagement.Models.DTOModels.SupervisorModelDTO
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -6,7 +6,7 @@
 <div class="text-center">
     <h1 class="display-4">Dashboard</h1>
     <br>
-    <h2 class="display-4">Welcome back, @Model.Supervisor.FullName!</h2>
+    <h2 class="display-4">Welcome back, @Model.FirstName!</h2>
     <a class="btn btn-primary" asp-controller="Employee" asp-action="AddEmployeeGet">Add Employee</a>
     @{
         if(Model.Employees.Count > 0)
@@ -37,7 +37,7 @@
         }
         else
         {
-            <h3>No Employee(s) To Show</h3>
+            <h3>No Employees To Show</h3>
         }
     }
 </div>

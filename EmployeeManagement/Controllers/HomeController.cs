@@ -2,7 +2,6 @@ using EmployeeManagement.Models;
 using EmployeeManagement.Models.CookieModels;
 using EmployeeManagement.Models.CoreModels;
 using EmployeeManagement.Models.DTOModels;
-using EmployeeManagement.Models.ViewModels;
 using EmployeeManagement.Services;
 using EmployeeManagement.Tools;
 using Microsoft.AspNetCore.Mvc;
@@ -34,11 +33,6 @@ namespace EmployeeManagement.Controllers
             var supervisor = new SupervisorModel();
             var supervisorDto = new SupervisorModelDTO();
 
-            var employeeTasks = new List<Task<List<EmployeeModel>>>();
-            var employees = new List<EmployeeModel>();
-            var employeeDto = new EmployeeModelDTO();
-
-            var viewModel = new HomeViewModel();
             var supervisorCookieModel = new SupervisorCookieModel();
             var supervisorCookiejSon = string.Empty;
 
@@ -74,28 +68,6 @@ namespace EmployeeManagement.Controllers
                     supervisor = (SupervisorModel)task;
                 }
                 supervisorDto.AssignObject(supervisor);
-
-                viewModel.Supervisor = supervisorDto;
-
-                employeeTasks = new List<Task<List<EmployeeModel>>>
-                {
-                    _employeeService.GetAllEmployeesAsync(supervisor.SupervisorId)
-                };
-
-                results = new object[0];
-                results = await Task.WhenAll(employeeTasks);
-
-                foreach (var task in results)
-                {
-                    employees = (List<EmployeeModel>)task;
-                }
-
-                foreach (var employee in employees)
-                {
-                    employeeDto = new EmployeeModelDTO();
-                    employeeDto.AssignObject(employee);
-                    viewModel.Employees.Add(employeeDto);
-                }
             }
             catch (Exception e)
             {
@@ -105,7 +77,7 @@ namespace EmployeeManagement.Controllers
             }
 
             _logger.LogInfo("-");
-            return View(viewModel);
+            return View(supervisorDto);
         }
 
         public IActionResult Privacy()

@@ -19,6 +19,7 @@ namespace EmployeeManagement.Models.CoreModels
         public DateTime? DeleteDate { get; set; }
 
         [NotMapped] public virtual SupervisorModel Supervisor { get; set; }
+        [NotMapped] public virtual List<EmployeeTimeEntryModel> TimeEntries { get; set; }
 
         public void CreateNewRecord(EmployeeModelDTO employee)
         {

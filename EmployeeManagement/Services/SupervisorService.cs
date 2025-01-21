@@ -20,6 +20,7 @@ namespace EmployeeManagement.Services
         {
             return await _coreDataService.Supervisors
               .Where(x => x.SupervisorId == id)
+              .Include(x => x.Employees)
               .FirstOrDefaultAsync();
         }
 
