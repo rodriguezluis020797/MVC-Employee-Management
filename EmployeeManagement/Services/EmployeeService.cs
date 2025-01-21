@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Models.CoreModels;
+using EmployeeManagement.Models.DTOModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Services
@@ -7,7 +8,7 @@ namespace EmployeeManagement.Services
     {
         public Task<List<EmployeeModel>> GetAllEmployeesAsync(long supervisorId);
         public EmployeeModel GetEmployeeById(long employeeId);
-        public void UpdateEmployee(EmployeeModel employee);
+        public void UpdateEmployee(EmployeeModelDTO employee);
         public void DeleteEmployee(long id, out string employeeName);
     }
 
@@ -32,13 +33,13 @@ namespace EmployeeManagement.Services
                 .FirstOrDefault();
         }
 
-        public void UpdateEmployee(EmployeeModel employee)
+        public void UpdateEmployee(EmployeeModelDTO employee)
         {
             var employeeToEdit = _coreDataService.Employees
-                .Where(x => x.EmployeeId == employee.EmployeeId)
+                .Where(x => x.EmployeeId == long.Parse(employee.EmployeeId))
                 .FirstOrDefault();
 
-            //employeeToEdit.UpdateRecord(employee);
+            employeeToEdit.UpdateRecord(employee);
 
             _coreDataService.Employees.Update(employeeToEdit);
             _coreDataService.SaveChanges();
@@ -61,7 +62,5 @@ namespace EmployeeManagement.Services
                 employeeName = null;
             }
         }
-
-
     }
 }

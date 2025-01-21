@@ -25,21 +25,20 @@ namespace EmployeeManagement.Models.CoreModels
             FirstName = employee.FirstName;
             LastName = employee.LastName;
             PhoneNumber = employee.PhoneNumber;
-            EMail = employee.Email;
+            EMail = employee.EMail;
             HourlyRate = employee.HourlyRate;
             CreateDate = DateTime.UtcNow;
         }
 
         public void UpdateRecord(EmployeeModelDTO employee)
         {
-            EmployeeId = long.Parse(employee.EmployeeId); //In production, this would be encrypted
             SupervisorId = long.Parse(employee.SupervisorId);
             FirstName = employee.FirstName;
             LastName = employee.LastName;
             PhoneNumber = employee.PhoneNumber;
-            EMail = employee.Email;
+            EMail = employee.EMail;
             HourlyRate = employee.HourlyRate;
-            UpdateDate = DateTime.UtcNow;
+
         }
 
         public void DeleteRecord()

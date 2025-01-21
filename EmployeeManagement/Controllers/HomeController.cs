@@ -73,6 +73,9 @@ namespace EmployeeManagement.Controllers
                 {
                     supervisor = (SupervisorModel)task;
                 }
+                supervisorDto.AssignObject(supervisor);
+
+                viewModel.Supervisor = supervisorDto;
 
                 employeeTasks = new List<Task<List<EmployeeModel>>>
                 {

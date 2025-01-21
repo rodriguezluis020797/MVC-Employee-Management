@@ -11,7 +11,7 @@ namespace EmployeeManagement.Models.DTOModels
         public string LastName { get; set; }
         public string FullName => $"{FirstName} {LastName}";
         public string PhoneNumber { get; set; }
-        public string Email { get; set; }
+        public string EMail { get; set; }
         public decimal HourlyRate { get; set; }
         public string ErrorMessage { get; set; }
 
@@ -40,14 +40,14 @@ namespace EmployeeManagement.Models.DTOModels
                 if (!Validation.IsValidPhoneNumber(PhoneNumber)) ErrorMessage = "Phone number is invalid";
             }
 
-            if (string.IsNullOrWhiteSpace(Email))
+            if (string.IsNullOrWhiteSpace(EMail))
             {
                 ErrorMessage = "Email is required";
             }
             else
             {
-                Email = Email.Trim();
-                if (!Validation.IsValidEmail(Email)) ErrorMessage = "Email is invalid";
+                EMail = EMail.Trim();
+                if (!Validation.IsValidEmail(EMail)) ErrorMessage = "Email is invalid";
             }
 
             if (HourlyRate <= 0) ErrorMessage = "Hourly rate must be greater than zero";
@@ -59,8 +59,9 @@ namespace EmployeeManagement.Models.DTOModels
             FirstName = employee.FirstName;
             LastName = employee.LastName;
             PhoneNumber = employee.PhoneNumber;
-            Email = employee.EMail;
+            EMail = employee.EMail;
             HourlyRate = employee.HourlyRate;
+            SupervisorId = employee.SupervisorId.ToString(); //In production, this would be encrypted
         }
 
         public override string ToString()
@@ -69,7 +70,7 @@ namespace EmployeeManagement.Models.DTOModels
                    $"{Environment.NewLine}First Name: {FirstName}" +
                    $"{Environment.NewLine}Last Name: {LastName}" +
                    $"{Environment.NewLine}PhoneNumber Number: {PhoneNumber}" +
-                   $"{Environment.NewLine}Email: {Email}" +
+                   $"{Environment.NewLine}Email: {EMail}" +
                    $"{Environment.NewLine}Hourly Rate: {HourlyRate}";
         }
     }

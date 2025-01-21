@@ -52,10 +52,11 @@ namespace EmployeeManagement.Controllers
             try
             {
                 employeeDto.Validate();
-                if (!string.IsNullOrWhiteSpace(employeeDto.ErrorMessage)) return View("EditEmployeeGet", employeeDto);
-
-                employee.CreateNewRecord(employeeDto);
-                _employeeService.UpdateEmployee(employee);
+                if (!string.IsNullOrWhiteSpace(employeeDto.ErrorMessage))
+                {
+                    return View("EditEmployeeGet", employeeDto);
+                }
+                _employeeService.UpdateEmployee(employeeDto);
                 _logger.LogAudit(employeeDto.ToString());
             }
             catch (Exception e)

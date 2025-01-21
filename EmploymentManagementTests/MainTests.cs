@@ -63,7 +63,7 @@ namespace EmploymentManagementTests
 
             var employeeOneDto = new EmployeeModelDTO()
             {
-                Email = "employee.one@gmail.com",
+                EMail = "employee.one@gmail.com",
                 FirstName = "Employee",
                 PhoneNumber = "1234567890",
                 LastName = "One",
@@ -72,7 +72,7 @@ namespace EmploymentManagementTests
 
             var employeeTwoDto = new EmployeeModelDTO()
             {
-                Email = "employee.two@gmail.com",
+                EMail = "employee.two@gmail.com",
                 FirstName = "Employee",
                 PhoneNumber = "1234567890",
                 LastName = "Two",
